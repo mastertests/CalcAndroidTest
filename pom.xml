@@ -11,8 +11,15 @@
 
     <properties>
         <suite>src/test/resources/suites/testng.xml</suite>
-    </properties>
 
+        <app>calculator</app>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <src.dir>${basedir}${file.separator}src${file.separator}main${file.separator}java</src.dir>
+        <resource.dir>src${file.separator}main${file.separator}resources</resource.dir>
+        <test.resource.dir>src${file.separator}test${file.separator}resources</test.resource.dir>
+        <testng.dir>${test.resource.dir}${file.separator}suites</testng.dir>
+        <report.dir>${basedir}${file.separator}reports${file.separator}${app}</report.dir>
+    </properties>
 
     <dependencies>
 
@@ -123,6 +130,22 @@
     </dependencies>
 
     <build>
+
+        <sourceDirectory>${src.dir}</sourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>${resource.dir}</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${test.resource.dir}</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -139,15 +162,46 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.18.1</version>
                     <configuration>
+                        <reportsDirectory>${report.dir}</reportsDirectory>
+                        <argLine>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5015</argLine>
                         <suiteXmlFiles>
                             <suiteXmlFile>${suite}</suiteXmlFile>
                         </suiteXmlFiles>
+                        <properties>
+                            <property>
+                                <name>usedefaultlisteners</name>
+                                <value>false</value>
+                            </property>
+                            <property>
+                                <name>listener</name>
+                                <value>org.uncommons.reportng.HTMLReporter, com.test.util.reporter.TestListener</value>
+                            </property>
+                            <property>
+                                <name>reporter</name>
+                                <value>com.test.util.reporter.Reporter</value>
+                            </property>
+                        </properties>
+                        <systemProperties>
+                            <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
+                            <app>${app}</app>
+                            <project.dir>${basedir}</project.dir>
+                            <upload.dir>${basedir}${file.separator}upload</upload.dir>
+                            <report.dir>${report.dir}</report.dir>
+                        </systemProperties>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>2.4.1</version>
+                    <configuration>
+                        <followSymLinks>false</followSymLinks>
+                        <filesets>
+                            <fileset>
+                                <directory>${basedir}${file.separator}reports</directory>
+                            </fileset>
+                        </filesets>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

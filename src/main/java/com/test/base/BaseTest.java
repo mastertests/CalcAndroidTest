@@ -1,5 +1,7 @@
 package com.test.base;
 
+import com.test.actions.Actions;
+import com.test.util.reporter.Reporter;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
@@ -9,7 +11,7 @@ import java.net.URL;
 @SuppressWarnings("WeakerAccess")
 public class BaseTest {
 
-    protected AndroidDriver driver;
+    public static AndroidDriver driver;
 
     protected String hubUrl, deviceName, platformName, platformVersion, udid, orientation, noReset;
 
@@ -58,7 +60,7 @@ public class BaseTest {
         capabilities.setCapability("appPackage", appPackage);
         capabilities.setCapability("appActivity", appActivity);
 
-        this.driver = new AndroidDriver(new URL(hubUrl), capabilities);
+        driver = new AndroidDriver(new URL(hubUrl), capabilities);
     }
 
     public DesiredCapabilities installedAppCaps() {
@@ -81,6 +83,10 @@ public class BaseTest {
 
     @AfterSuite(alwaysRun = true)
     public void tearDown() {
-        driver.quit();
+
+        Reporter.log("Closing application");
+
+//        Actions.mainActions().clearSession();
+        Actions.mainActions().closeApp();
     }
 }

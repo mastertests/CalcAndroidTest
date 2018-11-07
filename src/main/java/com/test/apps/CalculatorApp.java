@@ -1,61 +1,53 @@
 package com.test.apps;
 
+import com.test.base.BaseApp;
+import com.test.locators.AndroidUIAutomator;
+import com.test.locators.Locator;
 import com.test.util.Constants;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
+public class CalculatorApp extends BaseApp {
 
-public class CalculatorApp {
+    private final Locator digit = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/digit_%s\")");
+    private final Locator add = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/op_add\")");
+    private final Locator equals = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/eq\")");
+    private final Locator result = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/result\")");
 
-    private AppiumDriver driver;
-    private WebDriverWait wait;
+    public void calculateSum(int firstNumber, int secondNumber) {
 
-    private final By add = MobileBy.AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/op_add\")");
-    private final By equals = MobileBy.AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/eq\")");
-    private final By result = MobileBy.AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/result\")");
+        wait(Constants.ELEMENT_EXTRASMALL_TIMEOUT_SECONDS);
 
-    private final String digit = "new UiSelector().resourceId(\"com.google.android.calculator:id/digit_%s\")";
+        setNumber(firstNumber);
 
-    public void setDriver(AppiumDriver driver) {
+        pressPlus();
 
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Constants.ELEMENT_SMALL_TIMEOUT_MILLISECONDS);
-    }
+        setNumber(secondNumber);
 
-    public void setFormula() {
-
-        driver.manage().timeouts().implicitlyWait(Constants.ELEMENT_SMALL_TIMEOUT_MILLISECONDS, TimeUnit.SECONDS);
-
-        driver.findElement(MobileBy.AndroidUIAutomator(String.format(digit, 4)))
-                .click();
-
-        driver.findElement(MobileBy.AndroidUIAutomator(String.format(digit, 0)))
-                .click();
-
-        driver.findElement(MobileBy.AndroidUIAutomator(String.format(digit, 0)))
-                .click();
-
-        driver.findElement(add)
-                .click();
-
-        driver.findElement(MobileBy.AndroidUIAutomator(String.format(digit, 2)))
-                .click();
-
-        driver.findElement(MobileBy.AndroidUIAutomator(String.format(digit, 0)))
-                .click();
-
-        driver.findElement(equals)
-                .click();
+        pressEquals();
     }
 
     public int getResult() {
 
-        return Integer.valueOf(
-                wait.until(ExpectedConditions.visibilityOf(driver.findElement(result)))
-                        .getText());
+        wait(Constants.ELEMENT_EXTRASMALL_TIMEOUT_SECONDS);
+
+        return Integer.valueOf(getElement(result).getText());
+    }
+
+    private void setNumber(int number) {
+
+        char[] numberArray = Integer.toString(number).toCharArray();
+
+        for (char aNumberArray : numberArray) {
+            getElement(digit, aNumberArray).click();
+        }
+    }
+
+    private void pressPlus() {
+
+        getElement(add).click();
+    }
+
+    private void pressEquals() {
+
+        getElement(equals).click();
     }
 }

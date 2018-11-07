@@ -6,6 +6,7 @@ public class Apps {
     private static CalculatorApp calculatorApp;
 
     public static PlayMarketApp playMarketApp() {
+
         if (playMarketApp == null)
             playMarketApp = new PlayMarketApp();
 
@@ -13,6 +14,7 @@ public class Apps {
     }
 
     public static CalculatorApp calculatorApp() {
+
         if (calculatorApp == null)
             calculatorApp = new CalculatorApp();
 
