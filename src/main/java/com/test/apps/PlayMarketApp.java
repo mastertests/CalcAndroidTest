@@ -6,6 +6,7 @@ import com.test.locators.AndroidUIAutomator;
 import com.test.locators.ClassName;
 import com.test.locators.Locator;
 import com.test.locators.XPath;
+import com.test.util.reporter.Reporter;
 
 public class PlayMarketApp extends BaseApp {
 
@@ -19,27 +20,43 @@ public class PlayMarketApp extends BaseApp {
 
     public void getSearchResult(String appName) {
 
-        waitForElementVisibility(searchBox);
-        getElement(searchBox).click();
+        Reporter.log("Getting search result");
 
-        getElement(searchField).sendKeys(appName);
+        waitForElementVisibility(searchBox);
+        click("Click on search box", searchBox);
+
+        type("Set text " + appName + " to search field", appName, searchField);
 
         waitForElementVisibility(searchSuggestText, appName.toLowerCase());
-        getElement(searchSuggestText, appName.toLowerCase()).click();
+        click("Click on suggest text", searchSuggestText, appName.toLowerCase());
     }
 
-    public void installApp(String appName, String appPackage) throws Exception {
+    public void selectApp(String appName) {
+
+        Reporter.log("Select an application " + appName);
 
         waitForElementVisibility(appTitle, appName);
-        getElement(appTitle, appName).click();
+        click("Click on application title", appTitle, appName);
+    }
+
+    public void installApp(String appPackage) throws Exception {
+
+        Reporter.log("Installing application");
 
         if (isElementPresent(installButton)) {
-            getElement(installButton).click();
+            clickAndWaitElementVisibility("Click on install button", installButton, uninstallButton);
         } else {
-            Actions.playMarketActions().uninstallApp(appPackage);
-            waitForElementVisibility(installButton);
-            getElement(installButton).click();
-            waitForElementVisibility(uninstallButton);
+            reinstallApp(appPackage);
         }
+    }
+
+    private void reinstallApp(String appPackage) throws Exception {
+
+        Reporter.log("Uninstalling application");
+
+        Actions.playMarketActions().uninstallApp(appPackage);
+
+        waitForElementVisibility(installButton);
+        installApp(appPackage);
     }
 }

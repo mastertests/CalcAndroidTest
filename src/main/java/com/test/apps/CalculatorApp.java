@@ -8,21 +8,17 @@ import com.test.util.Constants;
 public class CalculatorApp extends BaseApp {
 
     private final Locator digit = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/digit_%s\")");
-    private final Locator add = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/op_add\")");
-    private final Locator equals = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/eq\")");
+    private final Locator plus = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/op_add\")");
+    private final Locator equally = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/eq\")");
     private final Locator result = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/result\")");
 
     public void calculateSum(int firstNumber, int secondNumber) {
 
         wait(Constants.ELEMENT_EXTRASMALL_TIMEOUT_SECONDS);
 
-        setNumber(firstNumber);
+        setSum(firstNumber, secondNumber);
 
-        pressPlus();
-
-        setNumber(secondNumber);
-
-        pressEquals();
+        pressEquallyButton();
     }
 
     public int getResult() {
@@ -36,18 +32,26 @@ public class CalculatorApp extends BaseApp {
 
         char[] numberArray = Integer.toString(number).toCharArray();
 
-        for (char aNumberArray : numberArray) {
-            getElement(digit, aNumberArray).click();
+        for (char num : numberArray) {
+            click("Click on digit " + num, digit, num);
         }
     }
 
-    private void pressPlus() {
+    private void setSum(int firstNumber, int secondNumber) {
+        setNumber(firstNumber);
 
-        getElement(add).click();
+        pressPlusButton();
+
+        setNumber(secondNumber);
     }
 
-    private void pressEquals() {
+    private void pressPlusButton() {
 
-        getElement(equals).click();
+        click("Click on plus", plus);
+    }
+
+    private void pressEquallyButton() {
+
+        click("Click on equally", equally);
     }
 }

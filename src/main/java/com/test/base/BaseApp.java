@@ -8,7 +8,6 @@ import com.test.util.Constants;
 import com.test.util.Random;
 import com.test.util.reporter.Reporter;
 import org.openqa.selenium.*;
-import org.openqa.selenium.Point;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -226,7 +225,6 @@ public class BaseApp {
     protected void clickAndWaitElementVisibility(String message, Locator locator, Locator locatorWaitFor, Object... elemArgs) {
         click(message, locator, elemArgs);
         waitForElementVisibility(locatorWaitFor);
-
     }
 
     protected void clickAndWaitElementInvisibility(String message, Locator locator, Locator locatorWaitFor, Object... elemArgs) {

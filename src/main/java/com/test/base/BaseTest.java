@@ -6,6 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.*;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 @SuppressWarnings("WeakerAccess")
@@ -63,6 +64,14 @@ public class BaseTest {
         driver = new AndroidDriver(new URL(hubUrl), capabilities);
     }
 
+    @Test(dependsOnMethods = "BaseTest.installAppFromPlayStore")
+    public void setInstalledAppDriver() throws MalformedURLException {
+
+        driver.quit();
+
+        driver = new AndroidDriver(new URL(hubUrl), installedAppCaps());
+    }
+
     public DesiredCapabilities installedAppCaps() {
 
         DesiredCapabilities capabilities = DesiredCapabilities.android();
@@ -86,7 +95,6 @@ public class BaseTest {
 
         Reporter.log("Closing application");
 
-//        Actions.mainActions().clearSession();
         Actions.mainActions().closeApp();
     }
 }
