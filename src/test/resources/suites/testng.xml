@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="MainSuite">
+
+    <parameter name="hubUrl" value="http://127.0.0.1:4723/wd/hub"/>
+    <parameter name="deviceName" value="Samsung Galaxy S6"/>
+    <parameter name="platformName" value="Android"/>
+    <parameter name="platformVersion" value="6.0.1"/>
+    <parameter name="udid" value="0815f89369ea0604"/>
+    <parameter name="orientation" value="PORTRAIT"/>
+    <parameter name="noReset" value="true"/>
+
+    <parameter name="appPackage" value="com.android.vending"/>
+    <parameter name="appActivity" value=".AssetBrowserActivity"/>
+
+    <parameter name="testAppName" value="Calculator"/>
+    <parameter name="testAppPackage" value="com.google.android.calculator"/>
+    <parameter name="testAppActivity" value="com.android.calculator2.Calculator"/>
+
+    <test name="test">
+
+        <classes>
+            <class name="com.test.FirstTest"/>
+        </classes>
+
+    </test>
+
+</suite>

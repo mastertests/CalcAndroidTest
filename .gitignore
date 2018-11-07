@@ -1,0 +1,11 @@
+*.class
+*.iws
+*.iml
+
+out/
+target/
+reports/
+node_modules/
+
+.idea/
+.idea_modules/
