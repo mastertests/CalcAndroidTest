@@ -11,14 +11,15 @@
     <parameter name="orientation" value="PORTRAIT"/>
     <parameter name="noReset" value="true"/>
 
-    <parameter name="appPackage" value="com.android.vending"/>
-    <parameter name="appActivity" value=".AssetBrowserActivity"/>
+    <parameter name="appPackage" value="com.google.android.calculator"/>
+    <parameter name="appActivity" value="com.android.calculator2.Calculator"/>
+    <parameter name="pathToApk" value="lib/apk/com.google.android.calculator.apk"/>
 
-    <parameter name="testAppName" value="Calculator"/>
-    <parameter name="testAppPackage" value="com.google.android.calculator"/>
-    <parameter name="testAppActivity" value="com.android.calculator2.Calculator"/>
+    <test name="testSum">
 
-    <test name="test">
+        <parameter name="firstTestNumber" value="400"/>
+        <parameter name="secondTestNumber" value="20"/>
+        <parameter name="expectedTestResult" value="420"/>
 
         <classes>
             <class name="com.test.CalculatorTest"/>

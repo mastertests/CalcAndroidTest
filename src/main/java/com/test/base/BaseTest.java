@@ -4,32 +4,26 @@ import com.test.actions.Actions;
 import com.test.util.reporter.Reporter;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
-@SuppressWarnings("WeakerAccess")
 public class BaseTest {
 
     public static AndroidDriver driver;
 
-    protected String hubUrl, deviceName, platformName, platformVersion, udid, orientation, noReset;
+    private String hubUrl, deviceName, platformName, platformVersion, udid, orientation, noReset;
 
-    protected String testAppName;
-    protected String testAppPackage;
-    protected String testAppActivity;
-
-    protected String appPackage;
-    protected String appActivity;
+    private String appPackage, appActivity, pathToApk;
 
     @BeforeSuite
-    @Parameters({"hubUrl", "deviceName", "platformName", "platformVersion",
-            "udid", "orientation", "noReset", "testAppName",
-            "testAppPackage", "testAppActivity", "appPackage", "appActivity"})
-    public void setParameters(String hubUrl, String deviceName, String platformName, String platformVersion,
-                              String udid, String orientation, String noReset, String testAppName,
-                              String testAppPackage, String testAppActivity, String appPackage, String appActivity) {
+    @Parameters({"hubUrl", "deviceName", "platformName", "platformVersion", "udid",
+            "orientation", "noReset", "appPackage", "appActivity", "pathToApk"})
+    public void setParameters(String hubUrl, String deviceName, String platformName, String platformVersion, String udid,
+                              String orientation, String noReset, String appPackage, String appActivity, String pathToApk) {
 
         this.hubUrl = hubUrl;
         this.deviceName = deviceName;
@@ -38,15 +32,18 @@ public class BaseTest {
         this.udid = udid;
         this.orientation = orientation;
         this.noReset = noReset;
-        this.testAppName = testAppName;
-        this.testAppPackage = testAppPackage;
-        this.testAppActivity = testAppActivity;
         this.appPackage = appPackage;
         this.appActivity = appActivity;
+        this.pathToApk = pathToApk;
     }
 
     @BeforeTest
     public void setUp() throws Exception {
+
+        if (Actions.adbActions().isApkInstalled(appPackage))
+            Actions.adbActions().uninstallApp(appPackage);
+
+        Actions.adbActions().installApp(pathToApk);
 
         DesiredCapabilities capabilities = DesiredCapabilities.android();
 
@@ -64,33 +61,7 @@ public class BaseTest {
         driver = new AndroidDriver(new URL(hubUrl), capabilities);
     }
 
-    @Test(dependsOnMethods = "BaseTest.installAppFromPlayStore")
-    public void setInstalledAppDriver() throws MalformedURLException {
-
-        driver.quit();
-
-        driver = new AndroidDriver(new URL(hubUrl), installedAppCaps());
-    }
-
-    public DesiredCapabilities installedAppCaps() {
-
-        DesiredCapabilities capabilities = DesiredCapabilities.android();
-
-        capabilities.setCapability("deviceName", deviceName);
-        capabilities.setCapability("platformName", platformName);
-        capabilities.setCapability("platformVersion", platformVersion);
-        capabilities.setCapability("orientation", orientation);
-        capabilities.setCapability("udid", udid);
-        capabilities.setCapability("noReset", noReset);
-
-        capabilities.setCapability("browserName", "");
-        capabilities.setCapability("appPackage", testAppPackage);
-        capabilities.setCapability("appActivity", testAppActivity);
-
-        return capabilities;
-    }
-
-    @AfterSuite(alwaysRun = true)
+    @AfterTest(alwaysRun = true)
     public void tearDown() {
 
         Reporter.log("Closing application");

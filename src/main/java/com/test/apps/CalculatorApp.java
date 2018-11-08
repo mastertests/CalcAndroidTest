@@ -1,43 +1,34 @@
 package com.test.apps;
 
 import com.test.base.BaseApp;
-import com.test.locators.AndroidUIAutomator;
+import com.test.locators.ID;
 import com.test.locators.Locator;
-import com.test.util.Constants;
 
 public class CalculatorApp extends BaseApp {
 
-    private final Locator digit = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/digit_%s\")");
-    private final Locator plus = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/op_add\")");
-    private final Locator equally = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/eq\")");
-    private final Locator result = new AndroidUIAutomator("new UiSelector().resourceId(\"com.google.android.calculator:id/result\")");
+    private final Locator digit = new ID("com.google.android.calculator:id/digit_%s");
+    private final Locator plus = new ID("com.google.android.calculator:id/op_add");
+    private final Locator equally = new ID("com.google.android.calculator:id/eq");
+    private final Locator result = new ID("com.google.android.calculator:id/result");
+
+    private final Locator numberPad = new ID("com.google.android.calculator:id/pad_numeric");
 
     public void calculateSum(int firstNumber, int secondNumber) {
 
-        wait(Constants.ELEMENT_EXTRASMALL_TIMEOUT_SECONDS);
+        waitForElementToBeClickable(numberPad);
 
         setSum(firstNumber, secondNumber);
 
         pressEquallyButton();
     }
 
-    public int getResult() {
+    public int getCalculateResult() {
 
-        wait(Constants.ELEMENT_EXTRASMALL_TIMEOUT_SECONDS);
-
-        return Integer.valueOf(getElement(result).getText());
-    }
-
-    private void setNumber(int number) {
-
-        char[] numberArray = Integer.toString(number).toCharArray();
-
-        for (char num : numberArray) {
-            click("Click on digit " + num, digit, num);
-        }
+        return Integer.valueOf(getElementText("Getting calculate result", result));
     }
 
     private void setSum(int firstNumber, int secondNumber) {
+
         setNumber(firstNumber);
 
         pressPlusButton();
@@ -45,13 +36,23 @@ public class CalculatorApp extends BaseApp {
         setNumber(secondNumber);
     }
 
+    private void setNumber(int number) {
+
+        char[] numberArray = Integer.toString(number).toCharArray();
+
+        for (char num : numberArray) {
+
+            click("Press digit " + num, digit, num);
+        }
+    }
+
     private void pressPlusButton() {
 
-        click("Click on plus", plus);
+        click("Press plus", plus);
     }
 
     private void pressEquallyButton() {
 
-        click("Click on equally", equally);
+        click("Press equally", equally);
     }
 }

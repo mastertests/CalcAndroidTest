@@ -3,7 +3,7 @@ package com.test.actions;
 public class Actions {
 
     private static MainActions mainActions;
-    private static PlayMarketActions playMarketActions;
+    private static AdbActions adbActions;
 
     public static MainActions mainActions() {
 
@@ -14,13 +14,13 @@ public class Actions {
         return mainActions;
     }
 
-    public static PlayMarketActions playMarketActions() {
+    public static AdbActions adbActions() {
 
-        if (playMarketActions == null) {
-            playMarketActions = new PlayMarketActions();
+        if (adbActions == null) {
+            adbActions = new AdbActions();
         }
 
-        return playMarketActions;
+        return adbActions;
     }
 }
 
