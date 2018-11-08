@@ -38,12 +38,16 @@ public class BaseTest {
     }
 
     @BeforeTest
-    public void setUp() throws Exception {
+    public void installAppApk() throws Exception {
 
         if (Actions.adbActions().isApkInstalled(appPackage))
             Actions.adbActions().uninstallApp(appPackage);
 
         Actions.adbActions().installApp(pathToApk);
+    }
+
+    @BeforeTest
+    public void setUp() throws Exception {
 
         DesiredCapabilities capabilities = DesiredCapabilities.android();
 
