@@ -14,9 +14,9 @@ import java.net.URL;
 public class BaseTest {
 
     public static AndroidDriver driver;
+    public static String udid;
 
-    private String hubUrl, deviceName, platformName, platformVersion, udid, orientation, noReset;
-
+    private String hubUrl, deviceName, platformName, platformVersion, orientation, noReset;
     private String appPackage, appActivity, pathToApk;
 
     @BeforeSuite
@@ -29,12 +29,12 @@ public class BaseTest {
         this.deviceName = deviceName;
         this.platformName = platformName;
         this.platformVersion = platformVersion;
-        this.udid = udid;
         this.orientation = orientation;
         this.noReset = noReset;
         this.appPackage = appPackage;
         this.appActivity = appActivity;
         this.pathToApk = pathToApk;
+        BaseTest.udid = udid;
     }
 
     @BeforeTest

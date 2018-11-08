@@ -10,15 +10,19 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <suite>src/test/resources/suites/testng.xml</suite>
 
         <app>calculator</app>
+        <suite>testngEmulator</suite>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <src.dir>${basedir}${file.separator}src${file.separator}main${file.separator}java</src.dir>
         <resource.dir>src${file.separator}main${file.separator}resources</resource.dir>
         <test.resource.dir>src${file.separator}test${file.separator}resources</test.resource.dir>
         <testng.dir>${test.resource.dir}${file.separator}suites</testng.dir>
         <report.dir>${basedir}${file.separator}reports${file.separator}${app}</report.dir>
+
+        <firstNumber>400</firstNumber>
+        <secondNumber>20</secondNumber>
+        <expectedResult>420</expectedResult>
     </properties>
 
     <dependencies>
@@ -165,7 +169,7 @@
                         <reportsDirectory>${report.dir}</reportsDirectory>
                         <argLine>-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5015</argLine>
                         <suiteXmlFiles>
-                            <suiteXmlFile>${suite}</suiteXmlFile>
+                            <suiteXmlFile>${testng.dir}${file.separator}${suite}.xml</suiteXmlFile>
                         </suiteXmlFiles>
                         <properties>
                             <property>
@@ -182,6 +186,9 @@
                             </property>
                         </properties>
                         <systemProperties>
+                            <firstNumber>${firstNumber}</firstNumber>
+                            <secondNumber>${secondNumber}</secondNumber>
+                            <expectedResult>${expectedResult}</expectedResult>
                             <org.uncommons.reportng.escape-output>false</org.uncommons.reportng.escape-output>
                             <app>${app}</app>
                             <project.dir>${basedir}</project.dir>

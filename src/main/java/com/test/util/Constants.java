@@ -10,4 +10,8 @@ public class Constants {
     public static final int ELEMENT_SMALL_TIMEOUT_MILLISECONDS = 10;
     public static final int ELEMENT_EXTRASMALL_TIMEOUT_SECONDS = 5;
     public static final int ELEMENT_MICRO_TIMEOUT_SECONDS = 2;
+
+    public static final int FIRST_NUMBER = Integer.valueOf(System.getProperty("firstNumber"));
+    public static final int SECOND_NUMBER = Integer.valueOf(System.getProperty("secondNumber"));
+    public static final int EXPECTED_RESULT = Integer.valueOf(System.getProperty("expectedResult"));
 }

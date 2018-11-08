@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="MainSuite">
+
+    <parameter name="hubUrl" value="http://127.0.0.1:4723/wd/hub"/>
+    <parameter name="deviceName" value="Google Pixel 2"/>
+    <parameter name="platformName" value="Android"/>
+    <parameter name="platformVersion" value="8.0"/>
+    <parameter name="udid" value="192.168.161.101:5555"/>
+    <parameter name="orientation" value="PORTRAIT"/>
+    <parameter name="noReset" value="true"/>
+
+    <parameter name="appPackage" value="com.google.android.calculator"/>
+    <parameter name="appActivity" value="com.android.calculator2.Calculator"/>
+    <parameter name="pathToApk" value="lib/apk/com.google.android.calculator.apk"/>
+
+    <test name="testSum">
+
+        <classes>
+            <class name="com.test.CalculatorTest"/>
+        </classes>
+
+    </test>
+
+</suite>
