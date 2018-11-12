@@ -14,4 +14,9 @@ public class Constants {
     public static final int FIRST_NUMBER = Integer.valueOf(System.getProperty("firstNumber"));
     public static final int SECOND_NUMBER = Integer.valueOf(System.getProperty("secondNumber"));
     public static final int EXPECTED_RESULT = Integer.valueOf(System.getProperty("expectedResult"));
+
+    public static final String MAIL_USERNAME = System.getProperty("mail");
+    public static final String MAIL_PASSWORD = System.getProperty("password");
+    public static final String TO_EMAIL = System.getProperty("toEmail");
+    public static final String FILE_PATH = System.getProperty("pdfFile");
 }

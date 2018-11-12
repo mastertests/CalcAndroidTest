@@ -9,6 +9,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
+import javax.mail.MessagingException;
 import java.net.URL;
 
 public class BaseTest {
@@ -66,10 +67,14 @@ public class BaseTest {
     }
 
     @AfterTest(alwaysRun = true)
-    public void tearDown() {
+    public void tearDown() throws MessagingException {
 
         Reporter.log("Closing application");
 
         Actions.mainActions().closeApp();
+
+//        Reporter.log("Sending reports to email");
+//
+//        Actions.mailActions().sendReports();
     }
 }

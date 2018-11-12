@@ -1,0 +1,30 @@
+<document xmlns="http://maven.apache.org/DOCUMENT/1.0.1"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/DOCUMENT/1.0.1 http://maven.apache.org/xsd/document-1.0.1.xsd"
+          outputName="${project.artifactId}">
+
+    <meta>
+        <title>Maven PDF Tests Report</title>
+        <authors>
+            <author>
+                <firstName>Nazar</firstName>
+                <lastName>Potykan</lastName>
+                <city>Cherkasy</city>
+                <email>nazar.potykan@gmail.com</email>
+                <companyName>TestMatick</companyName>
+            </author>
+        </authors>
+    </meta>
+
+    <toc name="Table of Contents">
+    </toc>
+
+    <cover>
+        <coverTitle>${project.name}</coverTitle>
+        <coverSubTitle>v. ${project.version}</coverSubTitle>
+        <projectName>${project.name}</projectName>
+        <projectLogo>http://maven.apache.org/images/maventxt_logo_200.gif</projectLogo>
+        <companyName>TestMatick</companyName>
+        <companyLogo>http://www.apache.org/images/asf_logo_wide.png</companyLogo>
+    </cover>
+</document>

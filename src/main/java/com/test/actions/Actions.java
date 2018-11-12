@@ -4,6 +4,7 @@ public class Actions {
 
     private static MainActions mainActions;
     private static AdbActions adbActions;
+    private static MailActions mailActions;
 
     public static MainActions mainActions() {
 
@@ -21,6 +22,15 @@ public class Actions {
         }
 
         return adbActions;
+    }
+
+    public static MailActions mailActions() {
+
+        if (mailActions == null) {
+            mailActions = new MailActions();
+        }
+
+        return mailActions;
     }
 }
 
